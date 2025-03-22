@@ -1,5 +1,3 @@
-from typing import List
-
 def main():
     print("Input:")
 
@@ -17,7 +15,7 @@ def main():
     for line in lines:
         edge1, edge2, edge3 = line.split("x")
         edge1, edge2, edge3 = int(edge1), int(edge2), int(edge3)
-        edges: List[int] = [edge1, edge2, edge3]
+        edges: list[int] = [edge1, edge2, edge3]
         smallest_edge = min(edges)
         edges.remove(smallest_edge)
         second_smallest_edge = min(edges)
