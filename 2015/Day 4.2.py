@@ -1,7 +1,7 @@
 import hashlib
 
 char = "0"
-num_char = 5
+num_char = 6
 
 def main():
 
