@@ -4,7 +4,6 @@ char = "0"
 num_char = 5
 
 def main():
-
     print("Input:")
     string = str(input())
 
