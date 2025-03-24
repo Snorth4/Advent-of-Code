@@ -12,8 +12,8 @@ def main():
         except EOFError:
             break
 
-    lights: list[list[bool]] = [[False for _ in range(1000)] for _ in range(1000)]
-    num_lit_lights = 0
+    lights: list[list[bool]] = [[0 for _ in range(1000)] for _ in range(1000)]
+    total_brightness = 0
 
     for instruction in instructions:
         if instruction[0:4] == "turn":
@@ -29,18 +29,18 @@ def main():
             for j in range(left, right+1):
 
                 if operation == "toggle":
-                    lights[i][j] = not lights[i][j]
-                    num_lit_lights += (-1) + (2 * lights[i][j])
+                    lights[i][j] += 2
+                    total_brightness += 2
 
-                elif operation == "on" and lights[i][j] == False:
-                    lights[i][j] = True
-                    num_lit_lights += 1
+                elif operation == "on":
+                    lights[i][j] += 1
+                    total_brightness += 1
 
-                elif operation == "off" and lights[i][j] == True:
-                    lights[i][j] = False
-                    num_lit_lights -= 1
+                elif operation == "off" and lights[i][j] > 0:
+                    lights[i][j] -= 1
+                    total_brightness -= 1
 
-    print(f"Number of lit lights: {num_lit_lights}")
+    print(f"Total brightness: {total_brightness}")
 
 if __name__ == "__main__":
     main()
