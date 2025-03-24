@@ -13,14 +13,17 @@ def main():
 
     num_nice = 0
     num_naughty = 0
-    for string in strings:
-        prev_char: str = None
-        num_vowels: int = 0
-        naughty: bool = False
-        contains_double_chars: bool = False
-        for curr_char in string:
-            substring = f"{prev_char}{curr_char}"
 
+    for string in strings:
+
+        prev_char: str = None
+        num_vowels = 0
+        naughty = False
+        contains_double_chars = False
+
+        for curr_char in string:
+
+            substring = f"{prev_char}{curr_char}"
             if substring == "ab" or substring == "cd" or substring == "pq" or substring == "xy":
                 num_naughty += 1
                 naughty = True
