@@ -31,8 +31,7 @@ def main():
                 if string[i-1] == "x":
                     num_extra += 1
 
-                elif string[i-1] != "x":
-
+                else:
                     if string[i] == "\\":
                         last_signifier = 0
                     num_memory += 1
@@ -42,8 +41,7 @@ def main():
                 if string[i-2] == "x":
                     num_extra += 1
 
-                elif string[i-2] != "x":
-
+                else:
                     if string[i] == "\\":
                         last_signifier = 0
                     num_memory += 1
