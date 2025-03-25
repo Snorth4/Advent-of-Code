@@ -31,10 +31,7 @@ class DistanceMap:
             self.locations.update({location_B: Location({location_A: distance})})
             self.num_locations += 1
 
-    def num_permutations(self) -> int:
-        return math.factorial(self.num_locations)
-    
-    def get_min_dists_brute_force(self) -> int:
+    def get_min_dists_brute_force(self, is_max: bool = False) -> int:
         min_dist = float('inf')
         max_dist = -float('inf')
         location_names = list(self.locations.keys())
@@ -48,7 +45,12 @@ class DistanceMap:
                 dist += self.locations[location_A].distance_to(location_B)
             min_dist = min(min_dist, dist)
             max_dist = max(max_dist, dist)
-        return min_dist
+        
+        if is_max: return max_dist
+        else: return min_dist
+    
+    def get_max_dists_brute_force(self) -> int:
+        return self.get_min_dists_brute_force(is_max=True)
 
 def main():
     print("Input:")
@@ -67,6 +69,7 @@ def main():
             break
 
     print(f"Minimum distance: {locations.get_min_dists_brute_force()}")
+    print(f"Maximum distance: {locations.get_max_dists_brute_force()}")
 
 if __name__ == "__main__":
     main()
