@@ -1,6 +1,4 @@
-import math, itertools
-
-# 368 too high
+import itertools
 
 class Location:
     def __init__(self, distance: dict[str : int]):
