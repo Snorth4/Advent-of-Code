@@ -29,6 +29,19 @@ def main():
     guest_list.sort()
     n = len(guest_list)
     
+    while True:
+        print("Are you seating yourself? (y/n)")
+        x = input().lower()
+        if x == "y" or x == "yes":
+            for guest in guest_list:
+                happiness_values["You"][guest] = 0
+                happiness_values[guest]["You"] = 0
+            guest_list.append("You")
+            break
+        elif x == "n" or x == "no":
+            break
+        del x
+    
     max_happiness = -float("inf")
     for perm in permutations(guest_list[1:]):
         perm = list(perm)
