@@ -1,6 +1,10 @@
 import json
 
 def run_dict(JSON_dict: dict) -> int:
+    for key in JSON_dict.keys():
+        if JSON_dict[key] == "red" or key == "red":
+            return 0
+    
     counter = 0
     for key in JSON_dict.keys():
         value = JSON_dict[key]
