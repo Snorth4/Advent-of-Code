@@ -1,4 +1,3 @@
-import math
 from itertools import permutations
 from collections import defaultdict
 
@@ -55,6 +54,6 @@ def main():
             max_happiness = happiness
     
     print(f"Maximum happiness: {max_happiness}")
-        
+    
 if __name__ == "__main__":
     main()
