@@ -1,6 +1,6 @@
-import math, numpy as np
+import numpy as np
 
-def calculate_score(ingredients: np.ndarray, num_tspns: np.ndarray) -> int:
+def calculate_score(ingredients: np.ndarray, num_tspns: np.ndarray, calories: int | None) -> int:
     
     # Matrix multiplication
     props_scores = np.dot(num_tspns, ingredients)
@@ -10,7 +10,10 @@ def calculate_score(ingredients: np.ndarray, num_tspns: np.ndarray) -> int:
     for prop_score in props_scores[:-2]:
         if prop_score <= 0:
             return 0
-        
+    
+    if calories != None and props_scores[4] != calories:
+        return 0
+    
     # Myltiply properties
     total_score = props_scores[0] * props_scores[1] * props_scores[2] * props_scores[3]
     
@@ -84,13 +87,21 @@ def main():
                           int(tokens[i][8][:-1]),
                           int(tokens[i][10])]
     del tokens
+    
+    print("Input an int for the target number of calories (empty for no target):")
+    calories_str = input()
+    calories = 0
+    if calories_str.strip() == "":
+        calories = None
+    else:
+        calories = int(calories_str.strip())
             
     # Do excess calculations...
     maximum_score = 0
     finished: bool = False
     while not finished:
         num_tspns, finished = next_valid_num_tspns(num_tspns)
-        score = calculate_score(ingredients, num_tspns)
+        score = calculate_score(ingredients, num_tspns, calories)
         
         if score > maximum_score:
             maximum_score = score
