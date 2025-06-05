@@ -82,21 +82,49 @@ def main():
                               cars = 2, 
                               perfumes = 1)
     
-    gift_giver_index: int = -1
-    for i in range(n_aunt_sues):
-        aunt_sue = aunt_sues[i]
-        if ((aunt_sue.children    is None or aunt_sue.children    == target_aunt_sue.children)    and 
-            (aunt_sue.cats        is None or aunt_sue.cats        == target_aunt_sue.cats)        and 
-            (aunt_sue.samoyeds    is None or aunt_sue.samoyeds    == target_aunt_sue.samoyeds)    and 
-            (aunt_sue.pomeranians is None or aunt_sue.pomeranians == target_aunt_sue.pomeranians) and 
-            (aunt_sue.akitas      is None or aunt_sue.akitas      == target_aunt_sue.akitas)      and 
-            (aunt_sue.vizslas     is None or aunt_sue.vizslas     == target_aunt_sue.vizslas)     and 
-            (aunt_sue.goldfish    is None or aunt_sue.goldfish    == target_aunt_sue.goldfish)    and 
-            (aunt_sue.trees       is None or aunt_sue.trees       == target_aunt_sue.trees)       and 
-            (aunt_sue.cars        is None or aunt_sue.cars        == target_aunt_sue.cars)        and 
-            (aunt_sue.perfumes    is None or aunt_sue.perfumes    == target_aunt_sue.perfumes)):
+    print(f"Do we know if it's defective? (y/n)")
+    valid = False
+    defective: str = ""
+    while not valid:
+        defective = str(input())
+        if defective.lower() == "y" or defective.lower() == "n" or defective.lower() == "":
+            valid = True
+        else:
+            print(f"Please only enter y or n.")
+    
+    if defective.lower() != "y":
+        gift_giver_index: int = -1
+        for i in range(n_aunt_sues):
+            aunt_sue = aunt_sues[i]
+            if ((aunt_sue.children    is None or aunt_sue.children    == target_aunt_sue.children)    and 
+                (aunt_sue.cats        is None or aunt_sue.cats        == target_aunt_sue.cats)        and 
+                (aunt_sue.samoyeds    is None or aunt_sue.samoyeds    == target_aunt_sue.samoyeds)    and 
+                (aunt_sue.pomeranians is None or aunt_sue.pomeranians == target_aunt_sue.pomeranians) and 
+                (aunt_sue.akitas      is None or aunt_sue.akitas      == target_aunt_sue.akitas)      and 
+                (aunt_sue.vizslas     is None or aunt_sue.vizslas     == target_aunt_sue.vizslas)     and 
+                (aunt_sue.goldfish    is None or aunt_sue.goldfish    == target_aunt_sue.goldfish)    and 
+                (aunt_sue.trees       is None or aunt_sue.trees       == target_aunt_sue.trees)       and 
+                (aunt_sue.cars        is None or aunt_sue.cars        == target_aunt_sue.cars)        and 
+                (aunt_sue.perfumes    is None or aunt_sue.perfumes    == target_aunt_sue.perfumes)):
+
+                gift_giver_index = i
+    else:
+        gift_giver_index: int = -1
+        for i in range(n_aunt_sues):
+            aunt_sue = aunt_sues[i]
+            if ((aunt_sue.children    is None or aunt_sue.children    == target_aunt_sue.children)    and 
+                (aunt_sue.cats        is None or aunt_sue.cats         > target_aunt_sue.cats)        and 
+                (aunt_sue.samoyeds    is None or aunt_sue.samoyeds    == target_aunt_sue.samoyeds)    and 
+                (aunt_sue.pomeranians is None or aunt_sue.pomeranians  < target_aunt_sue.pomeranians) and 
+                (aunt_sue.akitas      is None or aunt_sue.akitas      == target_aunt_sue.akitas)      and 
+                (aunt_sue.vizslas     is None or aunt_sue.vizslas     == target_aunt_sue.vizslas)     and 
+                (aunt_sue.goldfish    is None or aunt_sue.goldfish     < target_aunt_sue.goldfish)    and 
+                (aunt_sue.trees       is None or aunt_sue.trees        > target_aunt_sue.trees)       and 
+                (aunt_sue.cars        is None or aunt_sue.cars        == target_aunt_sue.cars)        and 
+                (aunt_sue.perfumes    is None or aunt_sue.perfumes    == target_aunt_sue.perfumes)):
+
+                gift_giver_index = i
         
-            gift_giver_index = i
     
     print(f"Sue {gift_giver_index+1} gave the gift.\n")
     
