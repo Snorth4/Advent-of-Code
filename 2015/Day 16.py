@@ -126,7 +126,7 @@ def main():
                 gift_giver_index = i
         
     
-    print(f"Sue {gift_giver_index+1} gave the gift.\n")
+    print(f"Sue {gift_giver_index+1} gave the gift.")
     
 if __name__ == "__main__":
     main()
