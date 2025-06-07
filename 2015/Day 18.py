@@ -23,6 +23,28 @@ def main():
         for j in range(length):
             if lines[i][j] == '#':
                 grid[i][j] = 1
+    del lines
+    
+    print(f"Are the lights broken? (y/n)")
+    valid = False
+    is_broken = False
+    while not valid:
+        line = input()
+        if line.lower() == "y":
+            valid = True
+            is_broken = True
+        elif line.lower() == "n" or line == "":
+            valid = True
+            is_broken = False
+        else:
+            print(f"Please only enter y or n.")
+    del valid
+    
+    if is_broken == True:
+        grid[0][0] = 1
+        grid[0][length-1] = 1
+        grid[height-1][0] = 1
+        grid[height-1][length-1] = 1
     
     n_steps = 100
     for _ in range(n_steps):
@@ -48,9 +70,13 @@ def main():
                 elif grid[i][j] == 1 and n_neighbors_on != 2 and n_neighbors_on != 3:
                     next_grid[i][j] = 0
         
+        if is_broken == True:
+            next_grid[0][0] = 1
+            next_grid[0][length-1] = 1
+            next_grid[height-1][0] = 1
+            next_grid[height-1][length-1] = 1
+        
         grid = next_grid
-    
-    print(f"\n{grid}\n")
     
     total_lights_on = grid.sum(axis=-1).sum(axis=-1)
 
