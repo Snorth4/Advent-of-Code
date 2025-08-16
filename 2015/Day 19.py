@@ -132,22 +132,42 @@ def main():
 
     ### Part 2: Reverse engineer the molecule in the fewest number of steps by using a recursive function.
     
-    curr_list: list[list[int]] = [molecule_tok]
-    curr_list_n_steps: list[int] = [0]
+    ### Use a prebuilt tree of the elements?
+    
+    import copy, time
+    
+    start_time = time.time()
+    
+    class Molecule_Object:
+        def __init__(self, 
+                     molecule: list[int] = [], 
+                     n_steps: int = 0):
+
+            self.molecule = molecule
+            self.n_steps = n_steps
+        
+        def increment(self):
+            self.n_steps = self.n_steps + 1
+    
+    curr_list: list[Molecule_Object] = [Molecule_Object(molecule_tok, 0)]
+    
+    min_n_steps: int = 999999999999
     
     while curr_list:
         
-        print(len(curr_list))
+        instance_start_time = time.time()
         
-        next_list: list[list[int]] = []
-        next_list_n_steps: list[int] = []
+        total_len: int = 0
+        for mole_obj in curr_list:
+            total_len += len(mole_obj.molecule)
+                
+        next_list: list[Molecule_Object] = []
 
         ### Iterate through each molecule in this iteration of the list...
-        for i in range(len(curr_list)):
-            curr_molecule: list[int] = curr_list[i]
-        
-            ### Iterate through each element in this instance of the molecule... 
-            for j in range(len(curr_molecule)):
+        for mole_obj in curr_list:
+            
+            ### Iterate through each element in this instance of the molecule...
+            for j in range(len(mole_obj.molecule)):
 
                 ### Iterate through each element...
                 for element in replacements:
@@ -157,25 +177,35 @@ def main():
                         n = len(replacement)
                         
                         ### If this is a valid replacement, try the replacement...
-                        if curr_molecule[j:j+n] == replacement:
-                            temp_molecule = molecule_tok.copy()
+                        if mole_obj.molecule[j:j+n] == replacement:
+                            temp_obj = copy.deepcopy(mole_obj)
 
                             ### Remove all elements that can be removed relating to the current replacement...
                             for _ in range(n):
-                                temp_molecule.pop(j)
+                                temp_obj.molecule.pop(j)
 
-                            ### If the molecule still has elements in it, create the next iteration of the list...
-                            if len(temp_molecule) > 0:
-                                temp_molecule.insert(j, element)
-                                next_list.append(temp_molecule)
-                                next_list_n_steps.append(curr_list_n_steps[i] + 1)
+                            temp_obj.molecule.insert(j, element)
+                            temp_obj.increment()
+                            
+                            if len(temp_obj.molecule) == 1 and temp_obj.molecule[0] == encoding['e'] and mole_obj.n_steps < min_n_steps:
+                                min_n_steps = temp_obj.n_steps
+                            
+                            next_list.append(temp_obj)
+                            
+                        ### If this is not a valid replacement, do nothing...
+                        else:
+                            ...
+                            
+        print(f"Instance runtime: {(((time.time() - instance_start_time)*1000) // 10) / 100:.2f}s, Avg length: {total_len // len(curr_list)}, Instances in list: {len(curr_list)}, Total elements: {total_len}")
         
-        curr_list = next_list
-        curr_list_n_steps = next_list_n_steps
-
+        curr_list = copy.deepcopy(next_list)
+        
+    print()
     print(f"Total molecules from molecule: {len(molecules_str)}")
     print(f"Unique molecules from molecule: {len(set(molecules_str))}")
-    print(f"Molecule was attained in {min(curr_list_n_steps)} steps.")
+    print()
+    print(f"Molecule was attained in {min_n_steps} steps and in {(((time.time() - start_time)*1000) // 10) / 100:.2f} seconds")
+    print()
 
 if __name__ == "__main__":
     main()
